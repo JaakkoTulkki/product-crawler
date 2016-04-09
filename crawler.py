@@ -13,6 +13,9 @@ def get_start_page_links(page_content):
     links = []
     for l in soup.findAll("div", {"class": "productInfo"}):
         links.extend(e['href'] for e in l.find_all("a") if e.has_attr("href"))
+    # if we don't have links, then something is wrong
+    if not links:
+        raise Exception("No links!!")
     return links
 
 
@@ -27,7 +30,11 @@ def scrape_product_page(page_content):
             data['description'] = m['content']
             break
     # take unitprice and remove line breaks, pound sign etc
-    unit_price = soup.find_all("p", {"class": "pricePerUnit"})[0].get_text()
+    unit_price = soup.find_all("p", {"class": "pricePerUnit"})
+    # this is the most important data, and raise error if we don't have it
+    if not unit_price:
+        raise Exception("No unit price!!")
+    unit_price = unit_price[0].get_text()
     unit_price = unit_price.replace(u"\n", "").replace(u"£", "").replace(u"/unit", "")
     data['unit_price'] = float(unit_price)
     # page content length into KB

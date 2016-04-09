@@ -61,6 +61,8 @@ class TestCrawler(TestCase):
         links = get_start_page_links(start_page_html)
         self.assertTrue(links[0] == "http://test.com")
         self.assertTrue(links[1] == "http://test2.com")
+        start_page_html = start_page_html.replace("productInfo", "error")
+        self.assertRaises(Exception, get_start_page_links, start_page_html)
 
 
     def test_scrape_product_page(self):
@@ -120,6 +122,8 @@ This opening div is inside "../../ReusableObjects/UserSubscribedOrNot.jsp"
                          'unit_price': 3.5
                         }
         self.assertEqual(data, correct_data, "Incorrect data {} is not {}".format(data, correct_data))
+        test_html = test_html.replace("pricePerUnit", "error")
+        self.assertRaises(Exception, scrape_product_page, test_html)
 
 if __name__ == '__main__':
     unittest.main()
