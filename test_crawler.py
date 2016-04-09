@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import unittest
 from unittest import TestCase
 from crawler import calculate_total_unit_costs, get_start_page_links, scrape_product_page
 
@@ -119,3 +120,6 @@ This opening div is inside "../../ReusableObjects/UserSubscribedOrNot.jsp"
                          'unit_price': 3.5
                         }
         self.assertEqual(data, correct_data, "Incorrect data {} is not {}".format(data, correct_data))
+
+if __name__ == '__main__':
+    unittest.main()
