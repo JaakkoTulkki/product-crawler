@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
 import requests
 import json
 import sys
